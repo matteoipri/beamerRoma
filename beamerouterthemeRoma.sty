@@ -14,9 +14,9 @@
 
 % Lengths
 \newlength{\beamer@Roma@line}
-\setlength{\beamer@Roma@line}{.02\paperheight}
+\setlength{\beamer@Roma@line}{.032\paperheight}
 \newlength{\beamer@Roma@linebar}
-\setlength{\beamer@Roma@linebar}{.03\paperheight}
+\setlength{\beamer@Roma@linebar}{.038\paperheight}
 
 % Header
 \defbeamertemplate*{headline}{Roma theme}
@@ -47,24 +47,26 @@
   \leavevmode%
   % First line
   \hbox{%
-  \begin{beamercolorbox}[wd=.2\paperwidth,ht=\beamer@Roma@line,dp=0pt]{}%
+  \begin{beamercolorbox}[wd=6\beamer@Roma@hstep,ht=\beamer@Roma@line,dp=0pt]{}%
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.8\paperwidth,ht=\beamer@Roma@line,dp=0pt]{line}%
+  \begin{beamercolorbox}[leftskip=2.4mm, rightskip=2.5cm, wd=0.8662\paperwidth,ht=\beamer@Roma@line,dp=0pt]{linebar}%
+    \ifnum\thepage>1\relax %skip2skp 16/09/2019: removes writing on title page
+    \tiny{\insertshorttitle\hfill\insertshortdate\hfill
+    \insertframenumber\hskip1pt\beamer@Roma@pageofpages\hskip1pt\inserttotalframenumber}%
+    \fi
   \end{beamercolorbox}%
   } %
   % Second line
   \hbox{%
-  \begin{beamercolorbox}[leftskip=\beamer@Roma@normalmargin,rightskip=\beamer@Roma@normalmargin,wd=\paperwidth,ht=\beamer@Roma@linebar,dp=0pt,sep=0.5pt]{linebar}%
-  \tiny{\insertshorttitle\hfill\insertshortdate\hfill
-  \insertframenumber\hskip1pt\beamer@Roma@pageofpages\hskip1pt\inserttotalframenumber}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=\beamer@Roma@vstep,dp=0pt,sep=0.5pt]{linebar}%
   \end{beamercolorbox}%
   } %
   % Third line
   \hbox{%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=\beamer@Roma@line,dp=0pt]{line}%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=\beamer@Roma@vstep,dp=0pt]{line}%
   \end{beamercolorbox}%
-  }% 
-}
+  }%
+} %skip2skp 16/09/2019: adjusted footer and placed text in the upper part as in official ppt given by sapienza
 
 \defbeamertemplate*{frametitle}{Roma theme}[1][left]
 {
@@ -73,7 +75,7 @@
   \@tempdima=\textwidth%
   \advance\@tempdima by\beamer@leftmargin%
   \advance\@tempdima by\beamer@rightmargin%
-  \vbox{}\vskip-.5\beamer@leftmargin%
+  %\vbox{}\vskip-.5\beamer@leftmargin% %skip2skp 16/09/2019: this line prevented the right spacing of the frame title
   \begin{beamercolorbox}[sep=\beamer@leftmargin,#1,wd=\the\@tempdima]{}
     \usebeamerfont{frametitle}\usebeamercolor[bg]{framesubtitle}%
     \vbox{}\vskip0ex%

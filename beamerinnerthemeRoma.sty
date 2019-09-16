@@ -6,7 +6,11 @@
 \newlength{\beamer@Roma@mid}
 \setlength{\beamer@Roma@mid}{0.5\paperheight}
 \newlength{\beamer@Roma@sep}
-\setlength{\beamer@Roma@sep}{0.45\paperheight}
+\setlength{\beamer@Roma@sep}{0.6\paperheight}
+\newlength{\beamer@Roma@hstep}
+\setlength{\beamer@Roma@hstep}{0.0223\paperwidth} %skip2skp 16/09/2019: 1/6 footer "step" width, 1/10 titlepage "step" width
+\newlength{\beamer@Roma@vstep}
+\setlength{\beamer@Roma@vstep}{0.038\paperheight} %skip2skp 16/09/2019: footer step's heights are 2 and 3 times this quantity
 \newlength{\beamer@Roma@normalmargin}
 \setlength{\beamer@Roma@normalmargin}{.06\paperwidth}
 \setbeamersize{text margin left=\beamer@Roma@normalmargin}
@@ -17,32 +21,32 @@
 
 % Logo
 \def\beamer@Roma@logo{logo-sap}
-\pgfdeclareimage[interpolate=true,width=3cm,height=1cm]{logo}{\beamer@Roma@logo}
+\pgfdeclareimage[interpolate=true,width=\paperwidth]{logo}{\beamer@Roma@logo}%skip2skp 16/09/2019: changed logo file - took it from official Sapienza power-point theme
 
 % Background
 \setbeamertemplate{background}{
   \ifnum\thepage=1\relax%
   \begin{tikzpicture}
-  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight); 
-  \fill[blueRoma] (0-\beamer@Roma@normalmargin,\the\paperheight)--(\the\paperwidth,\the\paperheight)--(\the\paperwidth,\beamer@Roma@mid)--(3\beamer@Roma@normalmargin,\beamer@Roma@mid)--(3\beamer@Roma@normalmargin,\beamer@Roma@sep)--(0-\beamer@Roma@normalmargin,\beamer@Roma@sep)--(0-\beamer@Roma@normalmargin,\the\paperheight);
-  \fill[redRoma] (0-\beamer@Roma@normalmargin,0)--(0-\beamer@Roma@normalmargin,\beamer@Roma@sep)--(3\beamer@Roma@normalmargin,\beamer@Roma@sep)--(3\beamer@Roma@normalmargin,\beamer@Roma@mid)--(\the\paperwidth,\beamer@Roma@mid)--(\the\paperwidth,0)--(0-\beamer@Roma@normalmargin,0);
-  \pgftext[at=\pgfpoint{2\beamer@Roma@normalmargin}{0.7\beamer@Roma@sep},left,base]{\pgfuseimage{logo}};
+  \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
+  \fill[blueRoma] (0-\beamer@Roma@normalmargin,\the\paperheight)--(\the\paperwidth,\the\paperheight)--(\the\paperwidth,\beamer@Roma@sep)--(10\beamer@Roma@hstep,\beamer@Roma@sep)--(10\beamer@Roma@hstep,\beamer@Roma@mid)--(0-\beamer@Roma@normalmargin,\beamer@Roma@mid)--(0-\beamer@Roma@normalmargin,\the\paperheight);
+  \fill[redRoma] (0-\beamer@Roma@normalmargin,0)--(0-\beamer@Roma@normalmargin,\beamer@Roma@mid)--(10\beamer@Roma@hstep,\beamer@Roma@mid)--(10\beamer@Roma@hstep,\beamer@Roma@sep)--(\the\paperwidth,\beamer@Roma@sep)--(\the\paperwidth,0)--(0-\beamer@Roma@normalmargin,0); %skip2skp 16/09/2019: set correct proportions of titlepage "step"
+  \pgftext[at=\pgfpoint{0}{\beamer@Roma@mid},left,top]{\pgfuseimage{logo}};
   \end{tikzpicture}
   \else
   \begin{tikzpicture}
   \useasboundingbox (0,0) rectangle (\the\paperwidth,\the\paperheight);
       \fill[white, opacity=1](0-\beamer@Roma@normalmargin,\the\paperheight)--(\the\paperwidth,\the\paperheight)--(\the\paperwidth,0)--(0,0)--(0-\beamer@Roma@normalmargin,\the\paperheight);
-       \fill[redRoma] (0-\beamer@Roma@normalmargin,0)--(0-\beamer@Roma@normalmargin,0.05\paperheight)--(2\beamer@Roma@normalmargin,0.05\paperheight)--(2\beamer@Roma@normalmargin,0.07\paperheight)--(\the\paperwidth,0.07\paperheight)--(\the\paperwidth,0)--(0-\beamer@Roma@normalmargin,0);
+       \fill[redRoma] (0-\beamer@Roma@normalmargin,0)--(0-\beamer@Roma@normalmargin,2\beamer@Roma@vstep)--(6\beamer@Roma@hstep,2\beamer@Roma@vstep)--(6\beamer@Roma@hstep,3\beamer@Roma@vstep)--(\the\paperwidth,3\beamer@Roma@vstep)--(\the\paperwidth,0)--(0-\beamer@Roma@normalmargin,0);
   \end{tikzpicture}
   \fi
 }
 
 % Title page
 \defbeamertemplate*{title page}{Roma}[1][]
-{ 
+{
   %\begin{centering}
     %\leavevmode
-    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=3\beamer@Roma@normalmargin,#1]{title page header}
+    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=11\beamer@Roma@hstep,#1]{title page header}
       \usebeamerfont{title}\inserttitle\par
       \ifx\insertsubtitle\@empty
       \else
@@ -51,18 +55,18 @@
         %\usebeamercolor[fg]{subtitle}
       \fi
     \end{beamercolorbox}
-    \vskip1em\par
-    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=3\beamer@Roma@normalmargin,#1]{author}
+    \vskip1ex\par
+    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=11\beamer@Roma@hstep,,#1]{author}
       \usebeamerfont{author}\insertauthor
     \end{beamercolorbox}
-    \vskip1em\par
-    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=3\beamer@Roma@normalmargin,#1]{date}
+    \vskip1ex\par
+    \begin{beamercolorbox}[wd=\paperwidth,sep=8pt,leftskip=11\beamer@Roma@hstep,,#1]{date}
       \usebeamerfont{date}\insertdate
     \end{beamercolorbox}
     \vskip5cm\par
   %\end{centering}
   %\vfill
-}
+} %skip2skp 16/09/201: adjusted title author and date positioning according to the correct title page settings
 
 % Items
 \setbeamertemplate{items}[ball]
